@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#define INPUT_LENGTH 1000
+#define INPUT_LENGTH 2048
+
+static char input[INPUT_LENGTH];
 
 void interpret(char *str) {
 	size_t i = 0;
@@ -12,12 +14,12 @@ void interpret(char *str) {
 }
 
 int main(){
-	char output[INPUT_LENGTH];
 	printf("I'm listening...\n");
+	printf("Press Ctrl + c to get out\n\n");
 
 	while(true) {
 		printf(">>> ");
-		fgets(output,INPUT_LENGTH,stdin);
-		interpret(output);
+		fgets(input,INPUT_LENGTH,stdin);
+		interpret(input);
 	}
 }
