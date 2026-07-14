@@ -3,9 +3,10 @@
 
 #define INPUT_LENGTH 2048
 
+// buffer input size
 static char input[INPUT_LENGTH];
 
-void interpret(char *str) {
+void scanner(char *str) {
 	size_t i = 0;
 	while(str[i] != '\0') {
 		printf("%c\n",str[i]);
@@ -20,6 +21,6 @@ int main(){
 	while(true) {
 		printf(">>> ");
 		fgets(input,INPUT_LENGTH,stdin);
-		interpret(input);
+		scanner(input);
 	}
 }
