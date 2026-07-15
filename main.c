@@ -3,15 +3,44 @@
 
 #define INPUT_LENGTH 2048
 
-// buffer input size
+// Type definitions
+#define INT 0
+#define OPERATOR 1
+
+// Token struct def
+typedef struct {
+	int type;
+	int number_value;
+	char operator_value;
+} Token;
+
+// Buffer input size
 static char input[INPUT_LENGTH];
 
-void scanner(char *str) {
-	size_t i = 0;
-	while(str[i] != '\0') {
-		printf("%c\n",str[i]);
-		i++;
+// Token initialization
+Token current_token;
+int current_position = 0;
+
+bool is_digit(char c) {
+	return c >= '0' && c <= '9';
+}
+
+void getNextToken(char *text){
+	// Get text current char to tokenize
+	char c = text[current_position];
+
+	// Check for token type
+	if ( is_digit(c) ) {
+		current_token.type = INT;
+		current_token.number_value = c - '0';
+	} else {
+		current_token.type = OPERATOR;
+		current_token.operator_value = c;
 	}
+}
+
+void lexer(char *input) {
+	getNextToken(input);
 }
 
 int main(){
@@ -21,6 +50,6 @@ int main(){
 	while(true) {
 		printf(">>> ");
 		fgets(input,INPUT_LENGTH,stdin);
-		scanner(input);
+		lexer(input);
 	}
 }
