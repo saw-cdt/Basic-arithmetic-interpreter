@@ -33,9 +33,11 @@ void getNextToken(char *text){
 	if ( is_digit(c) ) {
 		current_token.type = INT;
 		current_token.number_value = c - '0';
+		current_token.operator_value = ' ';
 	} else {
 		current_token.type = OPERATOR;
 		current_token.operator_value = c;
+		current_token.number_value = 0;
 	}
 }
 
