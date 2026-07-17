@@ -59,11 +59,11 @@ void parser(int type) {
 	}
 }
 
-void lexer(char *input) {
+int lexer(char *input) {
 	// Start with a num operator num sequence to test 
 	getNextToken(input);
 	parser(INT);
-	int right = current_token.number_value;
+	int left = current_token.number_value;
 
 	getNextToken(input);
 	parser(OPERATOR);
@@ -71,15 +71,15 @@ void lexer(char *input) {
 	
 	getNextToken(input);
 	parser(INT);
-	int left = current_token.number_value;
+	int right = current_token.number_value;
 
 	current_position = 0;
 	
 	// Then do the operation 
 	if (op == '+') {
-		printf("%d\n", right + left);
+        return left + right;
 	} else if (op == '-') {
-		printf("%d\n", right - left);
+        return left - right;
 	}
 };
 
@@ -92,9 +92,12 @@ int main(){
 	printf("I'm listening...\n");
 	printf("Press Ctrl + c to get out\n\n");
 
+    int result;
+
 	while(true) {
 		printf(">>> ");
 		fgets(input,INPUT_LENGTH,stdin);
-		lexer(input);
+		result = lexer(input);
+        printf("%d\n",result);
 	}
 }
