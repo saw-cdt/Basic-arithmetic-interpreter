@@ -51,6 +51,7 @@ void parser(int type) {
 }
 
 void lexer(char *input) {
+	// Start with a num operator num sequence to test 
 	getNextToken(input);
 	parser(INT);
 	int right = current_token.number_value;
@@ -65,6 +66,7 @@ void lexer(char *input) {
 
 	current_position = 0;
 	
+	// Then do the operation 
 	if (op == '+') {
 		printf("%d\n", right + left);
 	} else if (op == '-') {
