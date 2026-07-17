@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 
 #define INPUT_LENGTH 2048
@@ -39,13 +40,44 @@ void getNextToken(char *text){
 		current_token.operator_value = c;
 		current_token.number_value = 0;
 	}
+	current_position++;
+}
+
+void parser(int type) {
+	if(current_token.type != type) {
+		printf("Syntax Error: Token type not expected in position %d\n", current_position);
+		exit(-1);
+	}
 }
 
 void lexer(char *input) {
 	getNextToken(input);
+	parser(INT);
+	int right = current_token.number_value;
+
+	getNextToken(input);
+	parser(OPERATOR);
+	int op = current_token.operator_value;
+	
+	getNextToken(input);
+	parser(INT);
+	int left = current_token.number_value;
+
+	current_position = 0;
+	
+	if (op == '+') {
+		printf("%d\n", right + left);
+	} else if (op == '-') {
+		printf("%d\n", right - left);
+	}
+};
+
+void clear_screen() {
+	printf("\x1B[2J\x1B[H");
 }
 
 int main(){
+	clear_screen();
 	printf("I'm listening...\n");
 	printf("Press Ctrl + c to get out\n\n");
 
