@@ -30,9 +30,17 @@ bool is_operator(char c) {
 	return c == '+' || c == '-';
 }
 
+bool is_whitespace(char c) {
+	return c == ' ';
+}
+
 void getNextToken(char *text){
 	// Get text current char to tokenize
 	char c = text[current_position];
+	
+	while (is_whitespace(c)) {
+		c = text[current_position++];
+	}
 
 	// Check for token type
 	if ( is_digit(c) ) {
@@ -46,7 +54,7 @@ void getNextToken(char *text){
 		current_token.number_value = 0;
 	} 
 	else {
-		printf("Bro? What kind of operator is \'%c\'\n",c);
+		printf("Error: Bro? What kind of operator is \'%c\'\n",c);
 		exit(-1);
 	}
 	current_position++;
@@ -81,6 +89,7 @@ int lexer(char *input) {
 	} else if (op == '-') {
         return left - right;
 	}
+	return -1;
 };
 
 void clear_screen() {
@@ -88,7 +97,6 @@ void clear_screen() {
 }
 
 int main(){
-	clear_screen();
 	printf("I'm listening...\n");
 	printf("Press Ctrl + c to get out\n\n");
 
