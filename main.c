@@ -26,6 +26,10 @@ bool is_digit(char c) {
 	return c >= '0' && c <= '9';
 }
 
+bool is_operator(char c) {
+	return c == '+' || c == '-';
+}
+
 void getNextToken(char *text){
 	// Get text current char to tokenize
 	char c = text[current_position];
@@ -35,10 +39,15 @@ void getNextToken(char *text){
 		current_token.type = INT;
 		current_token.number_value = c - '0';
 		current_token.operator_value = ' ';
-	} else {
+	} 
+	else if ( is_operator(c) ){
 		current_token.type = OPERATOR;
 		current_token.operator_value = c;
 		current_token.number_value = 0;
+	} 
+	else {
+		printf("Bro? What kind of operator is \'%c\'\n",c);
+		exit(-1);
 	}
 	current_position++;
 }
